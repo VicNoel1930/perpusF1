@@ -113,19 +113,14 @@
                     </ul>
                 </li>
                 <li class="treeview 
-                <?php if ($this->uri->uri_string() == 'transaksi') {
-                    echo 'active';
-                } ?>
-                <?php if ($this->uri->uri_string() == 'transaksi/kembali') {
-                    echo 'active';
-                } ?>
-                 <?php if ($this->uri->uri_string() == 'transaksi/pinjam') {
-                        echo 'active';
-                    } ?>
-                <?php if ($this->uri->uri_string() == 'transaksi/detailpinjam/' . $this->uri->segment('3')) {
-                    echo 'active';
-                } ?>
-                <?php if ($this->uri->uri_string() == 'transaksi/kembalipinjam/' . $this->uri->segment('3')) {
+                <?php if (
+                    $this->uri->uri_string() == 'transaksi' ||
+                    $this->uri->uri_string() == 'transaksi/kembali' ||
+                    $this->uri->uri_string() == 'transaksi/pinjam' ||
+                    $this->uri->uri_string() == 'transaksi/konfirmasi' ||
+                    $this->uri->uri_string() == 'transaksi/detailpinjam/' . $this->uri->segment('3') ||
+                    $this->uri->uri_string() == 'transaksi/kembalipinjam/' . $this->uri->segment('3')
+                ) {
                     echo 'active';
                 } ?>">
                     <a href="#">
@@ -136,15 +131,16 @@
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li class="<?php if ($this->uri->uri_string() == 'transaksi') {
-                                        echo 'active';
-                                    } ?>
-                        <?php if ($this->uri->uri_string() == 'transaksi/pinjam') {
-                            echo 'active';
-                        } ?>
-                        <?php if ($this->uri->uri_string() == 'transaksi/kembalipinjam/' . $this->uri->segment('3')) {
+                        <li class="
+                        <?php if (
+                            $this->uri->uri_string() == 'transaksi' || $this->uri->uri_string() == 'transaksi/pinjam' || $this->uri->uri_string() == 'transaksi/kembalipinjam/' . $this->uri->segment('3') ||
+                            $this->uri->uri_string() == 'transaksi/konfirmasi'
+                        ) {
                             echo 'active';
                         } ?>">
+                        <li class="<?php if ($this->uri->uri_string() == 'transaksi') {
+                                        echo 'active';
+                                    } ?>">
                             <a href="<?php echo base_url("transaksi"); ?>" class="cursor">
                                 <span class="fa fa-upload"></span> Peminjaman
                             </a>
@@ -156,7 +152,7 @@
                                 <span class="fa fa-download"></span> Pengembalian
                             </a>
                         </li>
-                        <li class="<?php if ($this->uri->uri_string() == 'transaksi/kembali') {
+                        <li class="<?php if ($this->uri->uri_string() == 'transaksi/konfirmasi') {
                                         echo 'active';
                                     } ?>">
                             <a href="<?php echo base_url("transaksi/konfirmasi"); ?>" class="cursor">

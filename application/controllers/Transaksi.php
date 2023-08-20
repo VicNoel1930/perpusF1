@@ -305,7 +305,7 @@ class Transaksi extends CI_Controller
 			$this->session->set_flashdata('pesan', '<div id="notifikasi"><div class="alert alert-success">
 			<p> Peminjaman Buku Telah dikonfirmasi !</p>
 			</div></div>');
-			redirect(base_url('transaksi'));
+			redirect(base_url('transaksi/konfirmasi'));
 		}
 	}
 
