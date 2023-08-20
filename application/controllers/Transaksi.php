@@ -285,52 +285,25 @@ class Transaksi extends CI_Controller
 		}
 
 		if ($this->input->get('konfirmasi')) {
-			$id = $this->input->get('kembali');
+			$id = $this->input->get('konfirmasi');
 			$pinjam = $this->db->query("SELECT  * FROM tbl_pinjam WHERE pinjam_id = '$id'");
 
 			foreach ($pinjam->result_array() as $isi) {
 				$pinjam_id = $isi['pinjam_id'];
-				$denda = $this->db->query("SELECT * FROM tbl_denda WHERE pinjam_id = '$pinjam_id'");
-				$jml = $this->db->query("SELECT * FROM tbl_pinjam WHERE pinjam_id = '$pinjam_id'")->num_rows();
-				if ($denda->num_rows() > 0) {
-					$s = $denda->row();
-					echo $s->denda;
-				} else {
-					$date1 = date('Ymd');
-					$date2 = preg_replace('/[^0-9]/', '', $isi['tgl_balik']);
-					$diff = $date2 - $date1;
-					if ($diff >= 0) {
-						$harga_denda = 0;
-						$lama_waktu = 0;
-					} else {
-						$dd = $this->M_Admin->get_tableid_edit('tbl_biaya_denda', 'stat', 'Aktif');
-						$harga_denda = $jml * ($dd->harga_denda * abs($diff));
-						$lama_waktu = abs($diff);
-					}
-				}
 			}
 
 			$data = array(
-				'status' => 'Di Kembalikan',
-				'tgl_kembali'  => date('Y-m-d'),
+				'status' => 'Dipinjam',
 			);
 
 			$total_array = count($data);
 			if ($total_array != 0) {
-				$this->db->where('pinjam_id', $this->input->get('kembali'));
+				$this->db->where('pinjam_id', $this->input->get('konfirmasi'));
 				$this->db->update('tbl_pinjam', $data);
 			}
 
-			$data_denda = array(
-				'pinjam_id' => $this->input->get('kembali'),
-				'denda' => $harga_denda,
-				'lama_waktu' => $lama_waktu,
-				'tgl_denda' => date('Y-m-d'),
-			);
-			$this->db->insert('tbl_denda', $data_denda);
-
 			$this->session->set_flashdata('pesan', '<div id="notifikasi"><div class="alert alert-success">
-			<p> Pengembalian Pinjam Buku Sukses !</p>
+			<p> Peminjaman Buku Telah dikonfirmasi !</p>
 			</div></div>');
 			redirect(base_url('transaksi'));
 		}

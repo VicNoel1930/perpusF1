@@ -78,8 +78,8 @@
                                                        <td style="text-align:center;">
                                                             <?php if ($this->session->userdata('level') == 'Petugas') { ?>
                                                                  <?php if ($isi['tgl_kembali'] == '0') { ?>
-                                                                      <a data-toggle="modal" itemid="<?php $isi['pinjam_id']; ?>" data-target="#konfirmasi" href="javascript:void(0)" class="btn btn-warning btn-sm" title="pengembalian buku">
-                                                                           <i class="fa fa-sign-out"></i>Konfirmasi</a>
+                                                                      <a href="<?= base_url('transaksi/prosespinjam?konfirmasi=' . $isi['pinjam_id']); ?>" onclick="return confirm('Konfirmasi Pinjaman ?');" class="btn btn-warning btn-sm" title="Konfirmasi">
+                                                                           <i class="fa fa-sign-out">Konfirmasi</i></a>
                                                                  <?php } ?>
                                                                  <a href="<?= base_url('transaksi/prosespinjam?pinjam_id=' . $isi['pinjam_id']); ?>" onclick="return confirm('Anda yakin Peminjaman Ini akan dihapus ?');" class="btn btn-danger btn-sm" title="hapus pinjam">
                                                                       <i class="fa fa-trash"></i></a>
@@ -107,7 +107,7 @@
                     <h4 class="modal-title">Konfirmasi Peminjaman</h4>
                </div>
                <div id="modal_body" class="modal-body fileSelection1">
-                    <p>pppppppppppppppppppppppppppppppppppppppppppppppppppppppp</p>
+                    <p></p>
                </div>
                <div class="modal-footer">
                     <div class="pull-right">
